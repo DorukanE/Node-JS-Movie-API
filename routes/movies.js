@@ -15,7 +15,7 @@ router.get('/:movie_id', (req, res) =>{
 });
 
 router.put('/:movie_id', (req, res) =>{
-  Movie.findByIdAndUpdate(req.params.movie_id, req.body, (err, data) =>{
+  Movie.findByIdAndUpdate(req.params.movie_id, req.body, {new: true}, (err, data) =>{
     if(!data)
       res.json({message: 'Maalesef aradığınız film bulunamadı.'});
     if(err)
