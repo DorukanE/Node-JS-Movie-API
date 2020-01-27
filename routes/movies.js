@@ -3,6 +3,7 @@ const router = express.Router();
 
 const Movie = require('../models/Movie');
 
+//Find Top10 Films by imbd score
 router.get('/top10', (req, res) =>{
   Movie.find({}, (err, data) =>{
     if(!data)
@@ -14,6 +15,7 @@ router.get('/top10', (req, res) =>{
   }).limit(10).sort({imdb_score: -1});
 });
 
+//Find Films by Id
 router.get('/:movie_id', (req, res) =>{
   Movie.findById(req.params.movie_id, (err, data) =>{
     if(!data)
@@ -25,6 +27,7 @@ router.get('/:movie_id', (req, res) =>{
   });
 });
 
+//Update Films by Id
 router.put('/:movie_id', (req, res) =>{
   Movie.findByIdAndUpdate(req.params.movie_id, req.body, {new: true}, (err, data) =>{
     if(!data)
@@ -36,6 +39,7 @@ router.put('/:movie_id', (req, res) =>{
   });
 });
 
+//Remove Films by Id
 router.delete('/:movie_id', (req, res) =>{
   Movie.findByIdAndRemove(req.params.movie_id, (err, data) =>{
     if(!data)
@@ -47,8 +51,16 @@ router.delete('/:movie_id', (req, res) =>{
   });
 });
 
-router.get('/', (req, res) =>{
-  Movie.find({}, (err, data) =>{
+//Find Films between two dates
+router.get('/between/:start_year/:end_year', (req, res) =>{
+  const {start_year, end_year} = req.params;
+  Movie.find({
+    year: {
+      "$gte": parseInt(start_year), "$lte": parseInt(end_year)
+    }
+  }, (err, data) =>{
+    if(!data)
+    res.json({message: 'Maalesef aradığınız film bulunamadı.'});
     if(err)
       res.json(err);
 
@@ -56,6 +68,7 @@ router.get('/', (req, res) =>{
   });
 });
 
+//List All Films
 router.post('/', (req, res, next) => {
   /*const data = req.body.title;
   res.send(data);*/
