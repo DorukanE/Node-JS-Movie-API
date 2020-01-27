@@ -3,6 +3,25 @@ const router = express.Router();
 
 const Movie = require('../models/Movie');
 
+router.get('/:movie_id', (req, res) =>{
+  //gelen parametreler req.params içine gider
+  Movie.findById(req.params.movie_id, (err, data) =>{
+    if(err)
+      res.json(err);
+
+    res.json(data);
+  });
+});
+
+router.get('/', (req, res) =>{
+  Movie.find({}, (err, data) =>{
+    if(err)
+      res.json(err);
+
+    res.json(data);
+  });
+});
+
 router.post('/', (req, res, next) => {
   /*const data = req.body.title;
   res.send(data);*/
