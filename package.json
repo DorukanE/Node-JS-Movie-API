@@ -6,6 +6,7 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
+    "constantinople": "^4.0.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
@@ -13,5 +14,8 @@
     "jade": "~1.11.0",
     "mongoose": "^5.8.9",
     "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "clean-css": "^4.2.2"
   }
 }
