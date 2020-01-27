@@ -3,6 +3,17 @@ const router = express.Router();
 
 const Movie = require('../models/Movie');
 
+router.get('/top10', (req, res) =>{
+  Movie.find({}, (err, data) =>{
+    if(!data)
+    res.json({message: 'Maalesef aradığınız film bulunamadı.'});
+    if(err)
+      res.json(err);
+    
+    res.json(data);
+  }).limit(10).sort({imdb_score: -1});
+});
+
 router.get('/:movie_id', (req, res) =>{
   Movie.findById(req.params.movie_id, (err, data) =>{
     if(!data)
