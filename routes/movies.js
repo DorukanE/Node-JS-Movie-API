@@ -4,8 +4,9 @@ const router = express.Router();
 const Movie = require('../models/Movie');
 
 router.get('/:movie_id', (req, res) =>{
-  //gelen parametreler req.params içine gider
   Movie.findById(req.params.movie_id, (err, data) =>{
+    if(!data)
+      res.json({message: 'Maalesef aradığınız film bulunamadı.'});
     if(err)
       res.json(err);
 
