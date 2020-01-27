@@ -25,6 +25,17 @@ router.put('/:movie_id', (req, res) =>{
   });
 });
 
+router.delete('/:movie_id', (req, res) =>{
+  Movie.findByIdAndRemove(req.params.movie_id, (err, data) =>{
+    if(!data)
+      res.json({message: 'Maalesef aradığınız film bulunamadı.'});
+    if(err)
+      res.json(err);
+    
+    res.json(data);
+  });
+});
+
 router.get('/', (req, res) =>{
   Movie.find({}, (err, data) =>{
     if(err)
