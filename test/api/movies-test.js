@@ -59,7 +59,7 @@ describe('/api/movies tests', () =>{
     });
 
     describe('List movie', () =>{
-        it('(GET /) list movie by Id', (done) =>{
+        it('(GET /) list movie by id', (done) =>{
             chai.request(server)
                 .get('/api/movies/' + movieId)
                 .send(movieId)
@@ -78,4 +78,35 @@ describe('/api/movies tests', () =>{
                 });
         });
     });
+
+    describe('PUT movie', () =>{
+        it('(PUT /) update movies', (done) =>{
+            const movies = {
+                title: 'Yahşi Batı',
+                director_id: '5e30b3acbe85630d5040a574',
+                category: 'Komedi',
+                country: 'Türkiye',
+                year: 2011,
+                imdb_score: 7.4
+            };
+            chai.request(server)
+                .put('/api/movies/' + movieId)
+                .send(movies)
+                .set('x-access-token', token)
+                .end((err, res) =>{
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('title').eql(movies.title);
+                    res.body.should.have.property('director_id').eql(movies.director_id);
+                    res.body.should.have.property('category').eql(movies.category);
+                    res.body.should.have.property('country').eql(movies.country);
+                    res.body.should.have.property('year').eql(movies.year);
+                    res.body.should.have.property('imdb_score').eql(movies.imdb_score);
+                    movieId = res.body._id;
+                    done();
+                });
+        });
+    });
+
+    
 });
