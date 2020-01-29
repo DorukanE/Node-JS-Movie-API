@@ -126,4 +126,16 @@ router.put('/:director_id', (req, res) =>{
   });
 });
 
+//Remove Directors by Id
+router.delete('/:director_id', (req, res) =>{
+  Director.findByIdAndRemove(req.params.director_id, (err, data) =>{
+    if(!data)
+      res.json({message: 'Maalesef aradığınız film bulunamadı.'});
+    if(err)
+      res.json(err);
+    
+    res.json(data);
+  });
+});
+
 module.exports = router;
