@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrpyt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 //Models
 const User = require('../models/User');
@@ -26,4 +27,36 @@ router.post('/register', (req, res, next) => {
     });
   });
 });
+
+router.post('/authenticate', (req, res) =>{
+  const {username, password} = req.body;
+
+  User.findOne({
+    username
+  }, (err, user) =>{
+    if(err)
+      res.json(err);
+    if(!user){
+      res.json({status: false, message: 'Maalesef aradığınız kullanıcı bulunamadı.'});
+    }
+    else{
+      bcrpyt.compare(password, user.password).then((result) =>{
+        if(!result){
+          res.json({status: false, message: 'Maalesef girdiğiniz şifre yanlış.'});
+        }
+        else{
+          const payload = {
+            username
+          };
+          const token = jwt.sign(payload, req.app.get('secret_api_key'), {
+            expiresIn: 720 //12 saat
+          });
+          
+          res.json({status: 'true', token});
+        }
+      });
+    }
+  });
+});
+
 module.exports = router;
