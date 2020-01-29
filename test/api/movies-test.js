@@ -28,4 +28,32 @@ describe('/api/movies tests', () =>{
                 });
         });
     });
+
+    describe('POST movie', () =>{
+        it('(POST /) add movies', (done) =>{
+            const movies = {
+                title: 'Udemy',
+                director_id: '5e30b3acbe85630d5040a584',
+                category: 'Komedi',
+                country: 'Türkiye',
+                year: 1996,
+                imdb_score: 8.5
+            };
+            chai.request(server)
+                .post('/api/movies')
+                .send(movies)
+                .set('x-access-token', token)
+                .end((err, res) =>{
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('title');
+                    res.body.should.have.property('director_id');
+                    res.body.should.have.property('category');
+                    res.body.should.have.property('country');
+                    res.body.should.have.property('year');
+                    res.body.should.have.property('imdb_score');
+                    done();
+                });
+        });
+    });
 });
