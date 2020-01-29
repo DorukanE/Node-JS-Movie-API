@@ -114,4 +114,16 @@ router.get('/:director_id', (req, res) =>{
   });
 });
 
+//Update Directors by Id
+router.put('/:director_id', (req, res) =>{
+  Director.findByIdAndUpdate(req.params.director_id, req.body, {new: true}, (err, data) =>{
+    if(!data)
+      res.json({message: 'Maalesef aradığınız yönetmen bulunamadı.'});
+    if(err)
+      res.json(err);
+    
+    res.json(data);
+  });
+});
+
 module.exports = router;
