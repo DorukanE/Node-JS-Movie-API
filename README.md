@@ -32,3 +32,4 @@ Node.JS Movie API
 | /authenticate | `POST` | { username: 'foo', password:'1234' } | Generate a token. |
 
 # Demo
+Live demo on Hereoku: https://node-js-movie-api.herokuapp.com/
