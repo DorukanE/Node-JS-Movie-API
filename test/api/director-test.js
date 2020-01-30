@@ -38,5 +38,18 @@ describe('/api/directors test', () =>{
                 });
         });
     });
+
+    describe('GET list directors', () =>{
+        it('(GET / ) list directors and their films', (done) =>{
+            chai.request(server)
+                .get('/api/directors')
+                .set('x-access-token', token)
+                .end((err, res) =>{
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    done();
+                });
+        });
+    });
 });
 
