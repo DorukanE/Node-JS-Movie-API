@@ -13,6 +13,7 @@ describe('/api/directors test', () =>{
             .send({username: 'doruk', password: '12345'})
             .end((err, res) =>{
                 token = res.body.token
+                this.Timeout(5000);
                 done();
             });
     });
