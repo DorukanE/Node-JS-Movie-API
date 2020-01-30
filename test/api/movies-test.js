@@ -14,7 +14,7 @@ describe('/api/movies tests', () =>{
             .end((err, res) =>{
                 token = res.body.token;
                 done();
-            })
+            });
     });
     describe('/movies test', () =>{
         it('(GET /) movies', (done) =>{
