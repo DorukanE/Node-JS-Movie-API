@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/DorukanE/Node-JS-Movie-API.svg?branch=master)](https://travis-ci.com/DorukanE/Node-JS-Movie-API/jobs/281918738)
+
 # Node-JS-Movie-API
 Node.JS Movie API
 
