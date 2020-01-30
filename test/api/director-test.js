@@ -65,5 +65,28 @@ describe('/api/directors test', () =>{
                 });
         });
     });
+
+    describe('PUT director', () =>{
+        it('(PUT /) update directors', (done) =>{
+            const director = {
+                name: 'Dorukan',
+                surname: 'Eskiçeri',
+                bio: 'HFTTF'
+            };
+            chai.request(server)
+                .put('/api/directors/' + director_id)
+                .send(director)
+                .set('x-access-token', token)
+                .end((err, res) =>{
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('name').eql(director.name);
+                    res.body.should.have.property('surname').eql(director.surname);
+                    res.body.should.have.property('bio').eql(director.bio);
+                    director_id = res.body._id;
+                    done();
+                });
+        });
+    });
 });
 
