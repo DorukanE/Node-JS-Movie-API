@@ -134,7 +134,7 @@ router.delete('/:director_id', (req, res) =>{
     if(err)
       res.json(err);
     
-    res.json(data);
+    res.json({status: '1'});
   });
 });
 

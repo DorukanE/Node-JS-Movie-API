@@ -88,5 +88,19 @@ describe('/api/directors test', () =>{
                 });
         });
     });
+
+    describe('DELETE director', () =>{
+        it('(DELETE /) directors by Id', (done) =>{
+            chai.request(server)
+                .delete('/api/directors/' + director_id)
+                .set('x-access-token', token)
+                .end((err, res) =>{
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('status').eql('1');
+                    done();
+                });
+        });
+    });
 });
 
