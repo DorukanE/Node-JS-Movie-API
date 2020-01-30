@@ -1,0 +1,8 @@
+language: node_js
+node_js:
+    - 11
+before_install:
+    - npm install
+    - export NODE_ENV=production
+script:
+    -npm test
